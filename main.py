@@ -27,7 +27,7 @@ def main():
         audit_res=audit()
         logs.append(log("auditor","audit",audit_res))
 
-    if(audit_res["status"]!="tobefixed":
+    if(audit_res["status"]!="tobefixed"):
         break
         fix_res=fix(audit_result["plan"])
         logs.append(log("fixer","fix",fix_res))
