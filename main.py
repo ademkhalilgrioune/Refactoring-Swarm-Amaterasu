@@ -41,6 +41,12 @@ def main():
     else:
         print("termine avec failure")
     
+    if test_res["success"]:
+            print("Correct normally")
+            break
+    else:
+        print("termine avec failure")
+    
     log_experiment("System", "STARTUP", f"Target: {args.target_dir}", "INFO")
     print(" MISSION_COMPLETE")
 os.makedirs("logs", exist_ok=True) with open(LOG_FILE, "w", encoding="utf-8") as f: json.dump({"events": logs}, f, indent=2)
