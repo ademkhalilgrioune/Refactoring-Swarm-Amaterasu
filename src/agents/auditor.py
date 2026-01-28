@@ -37,8 +37,7 @@ class Auditor:
             file_prompt = self._build_prompt({str(file_path): file_issues})
             file_response = llm_callable(file_prompt)
             file_llm_summaries[str(file_path)] = file_response
-
-            # the Log per file
+              # the Log per file
             log_experiment(
                 agent_name=self.agent_name,
                 model_used="google-ai (via orchestrator)",
@@ -56,56 +55,9 @@ class Auditor:
         plan = self._build_refactoring_plan(static_report, file_llm_summaries)
 
         return plan
+)
 
-
-    # Internal helpers
-    def _collect_python_files(self, root: Path) -> List[Path]:
-        return [path for path in root.rglob("*.py") if path.is_file()]
-
-    def _run_static_analysis(self, files: List[Path]) -> Dict[str, List[Dict[str, Any]]]:
-        """
-        Runs pylint in JSON mode for each file.
-        """
-        results: Dict[str, List[Dict[str, Any]]] = {}
-
-        for file_path in files:
-            try:
-                completed = subprocess.run(
-                    [
-                        "pylint",
-                        str(file_path),
-                        "--output-format=json",
-                        "--score=n"
-                    ],
-                    capture_output=True,
-                    text=True,
-                    check=False
-                )
-
-                pylint_output = json.loads(completed.stdout) if completed.stdout.strip() else []
-
-                issues = []
-                for item in pylint_output:
-                    issues.append({
-                        "line": item.get("line"),
-                        "symbol": item.get("symbol"),
-                        "message": item.get("message"),
-                        "category": item.get("type")
-                    })
-
-                results[str(file_path)] = issues
-
-            except Exception as e:
-                results[str(file_path)] = [{
-                    "line": None,
-                    "symbol": "auditor_error",
-                    "message": str(e),
-                    "category": "fatal"
-                }]
-
-        return results
-
-    def _build_prompt(self, static_report: Dict[str, List[Dict[str, Any]]]) -> str:
+   def _build_prompt(self, static_report: Dict[str, List[Dict[str, Any]]]) -> str:
         """
         Builds a unique prompt for LLM reasoning.
         """
@@ -123,47 +75,4 @@ class Auditor:
             "- Identify risk level (LOW / MEDIUM / HIGH)\n"
             "- Propose ordered refactoring steps\n"
             "- Avoid implementation details\n\n"
-        )
-
-        report_section = "Static analysis findings:\n"
-        for file_path, issues in static_report.items():
-            report_section += f"\nFile: {file_path}\n"
-            if not issues:
-                report_section += "  No issues detected.\n"
-            else:
-                for issue in issues:
-                    report_section += (
-                        f"  - Line {issue['line']}: [{issue['category']}] {issue['message']}\n"
-                    )
-
-        closing = (
-            "\nReturn your analysis in clear natural language.\n"
-            "Do NOT use JSON. Do NOT invent new files.\n"
-        )
-
-        return intro + instructions + report_section + closing
-        # building the plan 
-
-    def _build_refactoring_plan(
-        self,
-        static_report: Dict[str, List[Dict[str, Any]]],
-        llm_summaries: Dict[str, str]
-    ) -> Dict[str, Any]:
-        """
-        Converts tool + LLM reasoning into a structured plan.
-        """
-        files_plan = []
-
-        for file_path, issues in static_report.items():
-            files_plan.append({
-                "file_path": file_path,
-                "issue_count": len(issues),
-                "static_issues": issues,
-                "llm_analysis_summary": llm_summaries.get(file_path, "")
-            })
-
-        return {
-            "auditor_version": self.version,
-            "generated_at": datetime.utcnow().isoformat(),
-            "files_overview": files_plan
-        }
+        ))
