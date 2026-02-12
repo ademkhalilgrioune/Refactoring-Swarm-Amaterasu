@@ -1,0 +1,32 @@
+# Environment
+venv/
+.venv/
+env/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sandbox (fichiers de travail temporaires)
+sandbox/*
+!sandbox/.gitkeep
+
+# Tests générés
+test_*.py
+
+# Logs (seront forcés avec git add -f lors du rendu)
+# logs/
+
+# OS
+.DS_Store
+Thumbs.db

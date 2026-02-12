@@ -1,0 +1,11 @@
+# Core Dependencies
+python-dotenv==1.0.0
+groq==0.9.0
+
+# Code Analysis & Testing
+pylint==3.0.3
+pytest==7.4.3
+pytest-timeout==2.2.0
+
+# Utilities
+colorama==0.4.6
