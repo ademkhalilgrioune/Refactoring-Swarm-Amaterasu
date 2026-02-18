@@ -1,6 +1,5 @@
 """
 Agent Auditor - Analyse le code et produit un plan de refactoring
-Conseil du Prof. BATATA: L'agent analyse les NOMS de fonctions/variables
 pour comprendre l'INTENTION même sans documentation
 """
 import json
