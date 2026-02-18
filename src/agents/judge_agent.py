@@ -1,6 +1,5 @@
 """
 Agent Judge - Génère et exécute des tests unitaires dynamiquement
-Conseil Prof. BATATA: Les tests doivent valider la LOGIQUE MÉTIER,
 pas juste l'exécution sans crash!
 """
 from typing import Dict
@@ -41,8 +40,6 @@ class JudgeAgent:
         system_prompt = """Tu es un expert en tests unitaires Python avec pytest.
 Ta mission est de générer des tests unitaires complets pour valider le code fourni.
 
- RÈGLE CRITIQUE (Prof. BATATA):
-Les tests doivent vérifier le COMPORTEMENT ATTENDU, pas juste l'absence d'erreurs!
 
 COMMENT DEVINER LE COMPORTEMENT ATTENDU:
 1. Analyse les NOMS de fonctions/variables
