@@ -54,9 +54,7 @@ RÈGLES CRITIQUES:
 5. Conserver la MÊME fonctionnalité - ne pas changer la logique métier
 6. Le code doit être EXÉCUTABLE et SANS ERREUR
 
-RÈGLE D'OR (Prof. BATATA):
-Si le code DEVRAIT faire X (basé sur les noms) mais fait Y, corrige pour faire X!
-Exemple: "calculate_discount" doit SOUSTRAIRE, pas additionner!
+
 
 FORMAT DE SORTIE:
 Retourne UNIQUEMENT le code Python corrigé, sans explications ni markdown.
