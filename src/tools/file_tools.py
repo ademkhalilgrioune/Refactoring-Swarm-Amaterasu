@@ -42,7 +42,7 @@ class FileManager:
         for root, _, files in os.walk(directory):
             for file in files:
                 # Ignorer les fichiers de test
-                if file.endswith('.py') and not file.startswith('test_'):
+                if file.endswith('.py') :
                     python_files.append(os.path.join(root, file))
         
         return list(set(python_files))
@@ -193,7 +193,7 @@ class TestRunner:
         """
         base_name = os.path.splitext(os.path.basename(source_file))[0]
         test_dir = os.path.dirname(source_file)
-        test_file = os.path.join(test_dir, f"test_{base_name}.py")
+        test_file = os.path.join(test_dir, f"unitaire_{base_name}.py")
         
         with open(test_file, 'w', encoding='utf-8') as f:
             f.write(test_content)
