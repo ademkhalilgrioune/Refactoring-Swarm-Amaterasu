@@ -20,6 +20,8 @@ __pycache__/
 # Sandbox (fichiers de travail temporaires)
 sandbox/*
 !sandbox/.gitkeep
+!sandbox/hidden_dataset/
+!sandbox/hidden_dataset/**
 
 # Tests générés
 test_*.py
