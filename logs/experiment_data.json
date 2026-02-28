@@ -4011,5 +4011,681 @@
       "fixed_code_length": 2223,
       "had_test_errors": true
     }
+  },
+  {
+    "timestamp": "2026-02-28T17:55:21.516230",
+    "agent_name": "Auditor_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "analysis",
+    "status": "SUCCESS",
+    "details": {
+      "file_analyzed": "./sandbox/hidden_dataset\\test_bad_code_complex.py",
+      "input_prompt": "Analyse ce fichier Python et produis un plan de refactoring détaillé.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code_complex.py\n\nCODE SOURCE:\n```python\nimport os\nimport sys\nimport math\nimport random\n\nx = 10\ny = 20\nz = x+y\n\ndef foo(a,b):\n    c = a+b\n    return c\ndef bar(x):\n  for i in range(5):\n        print(i)\n  if x>0:\n     print(\"Positive\")\n  else:\n       print(\"Negative or zero\")\ndef spam():\n   print(\"Hello\")\n   print(\"World\")\n   a=  [1,2,3,4]\n   for i in a:\n       print(i)\ndef eggs(x):\n   ...",
+      "output_response": "Analyse du code Python :\n\n```json\n{\n  \"file_path\": \"./sandbox/hidden_dataset/test_bad_code_complex.py\",\n  \"quality_score\": 0.0,\n  \"issues\": [\n    {\n      \"severity\": \"CRITIQUE\",\n      \"line\": 5,\n      \"type\": \"logic_error\",\n      \"description\": \"La fonction 'foo' additionne deux nombres, mais son nom ne reflète pas clairement son intention.\",\n      \"solution\": \"Renommer la fonction en 'add_numbers' pour refléter son intention.\",\n      \"expected_behavior\": \"La fonction devrait additionner deux no...",
+      "pylint_score": 0.0,
+      "issues_count": 6
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:55:24.301377",
+    "agent_name": "Fixer_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "fix",
+    "status": "SUCCESS",
+    "details": {
+      "file_fixed": "./sandbox/hidden_dataset\\test_bad_code_complex.py",
+      "iteration": 1,
+      "input_prompt": "Corrige ce code Python selon le plan de refactoring.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code_complex.py\n\nCODE ORIGINAL:\n```python\nimport os\nimport sys\nimport math\nimport random\n\nx = 10\ny = 20\nz = x+y\n\ndef foo(a,b):\n    c = a+b\n    return c\ndef bar(x):\n  for i in range(5):\n        print(i)\n  if x>0:\n     print(\"Positive\")\n  else:\n       print(\"Negative or zero\")\ndef spam():\n   print(\"Hello\")\n   print(\"World\")\n   a=  [1,2,3,4]\n   for i in a:\n       print(i)\ndef eggs(x):\n    if x%2==0:\n   ...",
+      "output_response": "```python\n\"\"\"Ce module contient des fonctions et des classes pour effectuer diverses opérations mathématiques.\"\"\"\n\nimport os\nimport sys\nimport math\nimport random\n\n# Constantes\nX = 10\nY = 20\nZ = X + Y\n\ndef additionner(a, b):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        a (int): Le premier nombre.\n        b (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme des deux nombres.\n    \"\"\"\n    return a + b\n\ndef imprimer_nombres():\n    \"\"\"\n    Imprime les nombres de 0 à 4.\n    \"\"\"\n ...",
+      "original_code_length": 745,
+      "fixed_code_length": 2633,
+      "had_test_errors": false
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:55:27.348677",
+    "agent_name": "Judge_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "generation",
+    "status": "SUCCESS",
+    "details": {
+      "file_tested": "./sandbox/hidden_dataset\\test_bad_code_complex.py",
+      "test_file_created": "./sandbox/hidden_dataset\\unitaire_test_bad_code_complex.py",
+      "input_prompt": "Génère des tests unitaires complets pour ce code Python.\n\nFICHIER SOURCE: ./sandbox/hidden_dataset\\test_bad_code_complex.py\n\nCODE À TESTER:\n```python\n\"\"\"Ce module contient des fonctions et des classes pour effectuer diverses opérations mathématiques.\"\"\"\n\nimport os\nimport sys\nimport math\nimport random\n\n# Constantes\nX = 10\nY = 20\nZ = X + Y\n\ndef additionner(a, b):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        a (int): Le premier nombre.\n        b (int): Le deuxième nombre.\n\n    Returns:\n ...",
+      "output_response": "```python\nimport pytest\nfrom test_bad_code_complex import (\n    additionner,\n    imprimer_nombres,\n    determiner_signe,\n    imprimer_messages,\n    determiner_parite,\n    calculer_tableau,\n    Calculatrice,\n)\n\ndef test_additionner_deux_nombres_positifs():\n    \"\"\"Additionne deux nombres positifs.\"\"\"\n    assert additionner(2, 3) == 5\n\ndef test_additionner_deux_nombres_negatifs():\n    \"\"\"Additionne deux nombres négatifs.\"\"\"\n    assert additionner(-2, -3) == -5\n\ndef test_additionner_un_nombre_positi...",
+      "source_code_length": 2633,
+      "test_code_length": 2945
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:55:30.546429",
+    "agent_name": "Fixer_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "debug",
+    "status": "SUCCESS",
+    "details": {
+      "file_fixed": "./sandbox/hidden_dataset\\test_bad_code_complex.py",
+      "iteration": 2,
+      "input_prompt": "Corrige ce code Python selon le plan de refactoring.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code_complex.py\n\nCODE ORIGINAL:\n```python\nimport os\nimport sys\nimport math\nimport random\n\nx = 10\ny = 20\nz = x+y\n\ndef foo(a,b):\n    c = a+b\n    return c\ndef bar(x):\n  for i in range(5):\n        print(i)\n  if x>0:\n     print(\"Positive\")\n  else:\n       print(\"Negative or zero\")\ndef spam():\n   print(\"Hello\")\n   print(\"World\")\n   a=  [1,2,3,4]\n   for i in a:\n       print(i)\ndef eggs(x):\n    if x%2==0:\n   ...",
+      "output_response": "```python\n\"\"\"Module avec des fonctions et classes pour effectuer des opérations mathématiques.\"\"\"\n\nimport os\nimport sys\nimport math\nimport random\n\n# Constantes\nX = 10\nY = 20\nZ = X + Y\n\ndef additionner(a, b):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        a (int): Le premier nombre.\n        b (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme des deux nombres.\n    \"\"\"\n    return a + b\n\ndef imprimer_nombres():\n    \"\"\"\n    Imprime les nombres de 0 à 4.\n    \"\"\"\n    for i in rang...",
+      "original_code_length": 745,
+      "fixed_code_length": 3255,
+      "had_test_errors": true
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:55:34.208220",
+    "agent_name": "Judge_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "generation",
+    "status": "SUCCESS",
+    "details": {
+      "file_tested": "./sandbox/hidden_dataset\\test_bad_code_complex.py",
+      "test_file_created": "./sandbox/hidden_dataset\\unitaire_test_bad_code_complex.py",
+      "input_prompt": "Génère des tests unitaires complets pour ce code Python.\n\nFICHIER SOURCE: ./sandbox/hidden_dataset\\test_bad_code_complex.py\n\nCODE À TESTER:\n```python\n\"\"\"Module avec des fonctions et classes pour effectuer des opérations mathématiques.\"\"\"\n\nimport os\nimport sys\nimport math\nimport random\n\n# Constantes\nX = 10\nY = 20\nZ = X + Y\n\ndef additionner(a, b):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        a (int): Le premier nombre.\n        b (int): Le deuxième nombre.\n\n    Returns:\n        int: La s...",
+      "output_response": "```python\nimport pytest\nfrom test_bad_code_complex import *\n\ndef test_additionner():\n    \"\"\"Test de l'addition de deux nombres.\"\"\"\n    assert additionner(2, 3) == 5\n    assert additionner(-2, 3) == 1\n    assert additionner(0, 0) == 0\n\ndef test_imprimer_nombres():\n    \"\"\"Test de l'impression des nombres de 0 à 4.\"\"\"\n    import io\n    import sys\n    capturedOutput = io.StringIO()\n    sys.stdout = capturedOutput\n    imprimer_nombres()\n    sys.stdout = sys.__stdout__\n    assert capturedOutput.getval...",
+      "source_code_length": 3255,
+      "test_code_length": 3222
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:55:37.282159",
+    "agent_name": "Fixer_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "debug",
+    "status": "SUCCESS",
+    "details": {
+      "file_fixed": "./sandbox/hidden_dataset\\test_bad_code_complex.py",
+      "iteration": 3,
+      "input_prompt": "Corrige ce code Python selon le plan de refactoring.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code_complex.py\n\nCODE ORIGINAL:\n```python\nimport os\nimport sys\nimport math\nimport random\n\nx = 10\ny = 20\nz = x+y\n\ndef foo(a,b):\n    c = a+b\n    return c\ndef bar(x):\n  for i in range(5):\n        print(i)\n  if x>0:\n     print(\"Positive\")\n  else:\n       print(\"Negative or zero\")\ndef spam():\n   print(\"Hello\")\n   print(\"World\")\n   a=  [1,2,3,4]\n   for i in a:\n       print(i)\ndef eggs(x):\n    if x%2==0:\n   ...",
+      "output_response": "```python\n\"\"\"Module contenant des fonctions et classes pour effectuer des opérations mathématiques.\"\"\"\n\nimport os\nimport sys\nimport math\nimport random\n\n# Constantes\nX = 10\nY = 20\nZ = X + Y\n\ndef additionner(a, b):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        a (int): Le premier nombre.\n        b (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme des deux nombres.\n    \"\"\"\n    return a + b\n\ndef imprimer_nombres():\n    \"\"\"\n    Imprime les nombres de 0 à 4.\n    \"\"\"\n    for i in...",
+      "original_code_length": 745,
+      "fixed_code_length": 2627,
+      "had_test_errors": true
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:55:40.086494",
+    "agent_name": "Judge_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "generation",
+    "status": "SUCCESS",
+    "details": {
+      "file_tested": "./sandbox/hidden_dataset\\test_bad_code_complex.py",
+      "test_file_created": "./sandbox/hidden_dataset\\unitaire_test_bad_code_complex.py",
+      "input_prompt": "Génère des tests unitaires complets pour ce code Python.\n\nFICHIER SOURCE: ./sandbox/hidden_dataset\\test_bad_code_complex.py\n\nCODE À TESTER:\n```python\n\"\"\"Module contenant des fonctions et classes pour effectuer des opérations mathématiques.\"\"\"\n\nimport os\nimport sys\nimport math\nimport random\n\n# Constantes\nX = 10\nY = 20\nZ = X + Y\n\ndef additionner(a, b):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        a (int): Le premier nombre.\n        b (int): Le deuxième nombre.\n\n    Returns:\n        int:...",
+      "output_response": "```python\nimport pytest\nfrom test_bad_code_complex import (\n    additionner,\n    imprimer_nombres,\n    determiner_signe,\n    imprimer_messages,\n    determiner_parity,\n    calculer_tableau,\n    Calculator\n)\n\ndef test_additionner_normale():\n    \"\"\"Test d'addition normale.\"\"\"\n    assert additionner(2, 3) == 5\n\ndef test_additionner_negatifs():\n    \"\"\"Test d'addition avec des nombres négatifs.\"\"\"\n    assert additionner(-2, -3) == -5\n\ndef test_additionner_zero():\n    \"\"\"Test d'addition avec zéro.\"\"\"\n ...",
+      "source_code_length": 2627,
+      "test_code_length": 2495
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:55:43.018192",
+    "agent_name": "Fixer_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "debug",
+    "status": "SUCCESS",
+    "details": {
+      "file_fixed": "./sandbox/hidden_dataset\\test_bad_code_complex.py",
+      "iteration": 4,
+      "input_prompt": "Corrige ce code Python selon le plan de refactoring.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code_complex.py\n\nCODE ORIGINAL:\n```python\nimport os\nimport sys\nimport math\nimport random\n\nx = 10\ny = 20\nz = x+y\n\ndef foo(a,b):\n    c = a+b\n    return c\ndef bar(x):\n  for i in range(5):\n        print(i)\n  if x>0:\n     print(\"Positive\")\n  else:\n       print(\"Negative or zero\")\ndef spam():\n   print(\"Hello\")\n   print(\"World\")\n   a=  [1,2,3,4]\n   for i in a:\n       print(i)\ndef eggs(x):\n    if x%2==0:\n   ...",
+      "output_response": "```python\nimport os\nimport sys\nimport math\nimport random\n\nx = 10\ny = 20\nz = x + y\n\ndef add_numbers(a, b):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        a (int): Le premier nombre.\n        b (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme des deux nombres.\n    \"\"\"\n    c = a + b\n    return c\n\ndef print_numbers(n):\n    \"\"\"\n    Imprime des nombres de 0 à n-1.\n\n    Args:\n        n (int): Le nombre de nombres à imprimer.\n    \"\"\"\n    for i in range(n):\n        print(i)\n\ndef che...",
+      "original_code_length": 745,
+      "fixed_code_length": 2668,
+      "had_test_errors": true
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:55:45.886723",
+    "agent_name": "Judge_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "generation",
+    "status": "SUCCESS",
+    "details": {
+      "file_tested": "./sandbox/hidden_dataset\\test_bad_code_complex.py",
+      "test_file_created": "./sandbox/hidden_dataset\\unitaire_test_bad_code_complex.py",
+      "input_prompt": "Génère des tests unitaires complets pour ce code Python.\n\nFICHIER SOURCE: ./sandbox/hidden_dataset\\test_bad_code_complex.py\n\nCODE À TESTER:\n```python\nimport os\nimport sys\nimport math\nimport random\n\nx = 10\ny = 20\nz = x + y\n\ndef add_numbers(a, b):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        a (int): Le premier nombre.\n        b (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme des deux nombres.\n    \"\"\"\n    c = a + b\n    return c\n\ndef print_numbers(n):\n    \"\"\"\n    Imprime d...",
+      "output_response": "```python\nimport pytest\nfrom test_bad_code_complex import add_numbers, print_numbers, check_positive, print_hello_world, print_list, check_parity, generate_list, Calculator\n\ndef test_add_numbers_normal_case():\n    \"\"\"Teste l'addition de deux nombres.\"\"\"\n    assert add_numbers(2, 3) == 5\n\ndef test_add_numbers_limit_case():\n    \"\"\"Teste l'addition de deux nombres avec une limite.\"\"\"\n    assert add_numbers(0, 0) == 0\n\ndef test_add_numbers_error_case():\n    \"\"\"Teste l'addition de deux nombres avec u...",
+      "source_code_length": 2668,
+      "test_code_length": 2304
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:55:49.344636",
+    "agent_name": "Fixer_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "debug",
+    "status": "SUCCESS",
+    "details": {
+      "file_fixed": "./sandbox/hidden_dataset\\test_bad_code_complex.py",
+      "iteration": 5,
+      "input_prompt": "Corrige ce code Python selon le plan de refactoring.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code_complex.py\n\nCODE ORIGINAL:\n```python\nimport os\nimport sys\nimport math\nimport random\n\nx = 10\ny = 20\nz = x+y\n\ndef foo(a,b):\n    c = a+b\n    return c\ndef bar(x):\n  for i in range(5):\n        print(i)\n  if x>0:\n     print(\"Positive\")\n  else:\n       print(\"Negative or zero\")\ndef spam():\n   print(\"Hello\")\n   print(\"World\")\n   a=  [1,2,3,4]\n   for i in a:\n       print(i)\ndef eggs(x):\n    if x%2==0:\n   ...",
+      "output_response": "```python\nimport os\nimport sys\nimport math\nimport random\n\nx = 10\ny = 20\nz = x + y\n\ndef add_numbers(a, b):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        a (int): Le premier nombre.\n        b (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme des deux nombres.\n    \"\"\"\n    c = a + b\n    return c\n\ndef print_numbers(n):\n    \"\"\"\n    Imprime des nombres de 0 à n-1.\n\n    Args:\n        n (int): Le nombre de nombres à imprimer.\n    \"\"\"\n    for i in range(n):\n        print(i)\n\ndef che...",
+      "original_code_length": 745,
+      "fixed_code_length": 2689,
+      "had_test_errors": true
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:55:50.988757",
+    "agent_name": "Judge_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "generation",
+    "status": "SUCCESS",
+    "details": {
+      "file_tested": "./sandbox/hidden_dataset\\test_bad_code_complex.py",
+      "test_file_created": "./sandbox/hidden_dataset\\unitaire_test_bad_code_complex.py",
+      "input_prompt": "Génère des tests unitaires complets pour ce code Python.\n\nFICHIER SOURCE: ./sandbox/hidden_dataset\\test_bad_code_complex.py\n\nCODE À TESTER:\n```python\nimport os\nimport sys\nimport math\nimport random\n\nx = 10\ny = 20\nz = x + y\n\ndef add_numbers(a, b):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        a (int): Le premier nombre.\n        b (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme des deux nombres.\n    \"\"\"\n    c = a + b\n    return c\n\ndef print_numbers(n):\n    \"\"\"\n    Imprime d...",
+      "output_response": "def test_add():\n    assert add(2, 2) == 4\n\ndef test_divide():\n    with pytest.raises(ValueError):\n        divide(1, 0)...",
+      "source_code_length": 2689,
+      "test_code_length": 118
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:55:53.868944",
+    "agent_name": "Fixer_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "debug",
+    "status": "SUCCESS",
+    "details": {
+      "file_fixed": "./sandbox/hidden_dataset\\test_bad_code_complex.py",
+      "iteration": 6,
+      "input_prompt": "Corrige ce code Python selon le plan de refactoring.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code_complex.py\n\nCODE ORIGINAL:\n```python\nimport os\nimport sys\nimport math\nimport random\n\nx = 10\ny = 20\nz = x+y\n\ndef foo(a,b):\n    c = a+b\n    return c\ndef bar(x):\n  for i in range(5):\n        print(i)\n  if x>0:\n     print(\"Positive\")\n  else:\n       print(\"Negative or zero\")\ndef spam():\n   print(\"Hello\")\n   print(\"World\")\n   a=  [1,2,3,4]\n   for i in a:\n       print(i)\ndef eggs(x):\n    if x%2==0:\n   ...",
+      "output_response": "```python\nimport os\nimport sys\nimport math\nimport random\n\nx = 10\ny = 20\nz = x + y\n\ndef add_numbers(a, b):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        a (int): Le premier nombre.\n        b (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme des deux nombres.\n    \"\"\"\n    c = a + b\n    return c\n\ndef print_numbers(n):\n    \"\"\"\n    Imprime des nombres de 0 à n-1.\n\n    Args:\n        n (int): Le nombre de nombres à imprimer.\n    \"\"\"\n    for i in range(n):\n        print(i)\n\ndef che...",
+      "original_code_length": 745,
+      "fixed_code_length": 2684,
+      "had_test_errors": true
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:55:54.946620",
+    "agent_name": "Judge_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "generation",
+    "status": "SUCCESS",
+    "details": {
+      "file_tested": "./sandbox/hidden_dataset\\test_bad_code_complex.py",
+      "test_file_created": "./sandbox/hidden_dataset\\unitaire_test_bad_code_complex.py",
+      "input_prompt": "Génère des tests unitaires complets pour ce code Python.\n\nFICHIER SOURCE: ./sandbox/hidden_dataset\\test_bad_code_complex.py\n\nCODE À TESTER:\n```python\nimport os\nimport sys\nimport math\nimport random\n\nx = 10\ny = 20\nz = x + y\n\ndef add_numbers(a, b):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        a (int): Le premier nombre.\n        b (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme des deux nombres.\n    \"\"\"\n    c = a + b\n    return c\n\ndef print_numbers(n):\n    \"\"\"\n    Imprime d...",
+      "output_response": "def test_add():\n    assert add(2, 2) == 4\n\ndef test_divide():\n    with pytest.raises(ValueError):\n        divide(1, 0)...",
+      "source_code_length": 2684,
+      "test_code_length": 118
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:55:56.039269",
+    "agent_name": "Fixer_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "debug",
+    "status": "SUCCESS",
+    "details": {
+      "file_fixed": "./sandbox/hidden_dataset\\test_bad_code_complex.py",
+      "iteration": 7,
+      "input_prompt": "Corrige ce code Python selon le plan de refactoring.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code_complex.py\n\nCODE ORIGINAL:\n```python\nimport os\nimport sys\nimport math\nimport random\n\nx = 10\ny = 20\nz = x+y\n\ndef foo(a,b):\n    c = a+b\n    return c\ndef bar(x):\n  for i in range(5):\n        print(i)\n  if x>0:\n     print(\"Positive\")\n  else:\n       print(\"Negative or zero\")\ndef spam():\n   print(\"Hello\")\n   print(\"World\")\n   a=  [1,2,3,4]\n   for i in a:\n       print(i)\ndef eggs(x):\n    if x%2==0:\n   ...",
+      "output_response": "{\n  \"quality_score\": 5.0,\n  \"issues\": [\n    {\n      \"severity\": \"MAJEUR\",\n      \"line\": 5,\n      \"type\": \"bug\",\n      \"description\": \"Division par zéro potentielle\",\n      \"solution\": \"Ajouter une vérification\"\n    }\n  ],\n  \"refactoring_plan\": \"1. Ajouter docstring\\n2. Gérer les erreurs\",\n  \"estimated_effort\": \"MOYEN\"\n}...",
+      "original_code_length": 745,
+      "fixed_code_length": 321,
+      "had_test_errors": true
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:55:58.378900",
+    "agent_name": "Judge_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "generation",
+    "status": "SUCCESS",
+    "details": {
+      "file_tested": "./sandbox/hidden_dataset\\test_bad_code_complex.py",
+      "test_file_created": "./sandbox/hidden_dataset\\unitaire_test_bad_code_complex.py",
+      "input_prompt": "Génère des tests unitaires complets pour ce code Python.\n\nFICHIER SOURCE: ./sandbox/hidden_dataset\\test_bad_code_complex.py\n\nCODE À TESTER:\n```python\n{\n  \"quality_score\": 5.0,\n  \"issues\": [\n    {\n      \"severity\": \"MAJEUR\",\n      \"line\": 5,\n      \"type\": \"bug\",\n      \"description\": \"Division par zéro potentielle\",\n      \"solution\": \"Ajouter une vérification\"\n    }\n  ],\n  \"refactoring_plan\": \"1. Ajouter docstring\\n2. Gérer les erreurs\",\n  \"estimated_effort\": \"MOYEN\"\n}\n```\n\nEXIGENCES CRITIQUES:\n- ...",
+      "output_response": "```python\nimport pytest\nfrom test_bad_code_complex import calculate_average, is_adult, calculate_discount\n\ndef test_calculate_average():\n    \"\"\"Une moyenne de [10, 20] doit être 15\"\"\"\n    assert calculate_average([10, 20]) == 15\n\ndef test_calculate_average_empty_list():\n    \"\"\"Une moyenne d'une liste vide doit lever une erreur\"\"\"\n    with pytest.raises(ZeroDivisionError):\n        calculate_average([])\n\ndef test_is_adult():\n    \"\"\"Un adulte de 18 ans doit être considéré comme adulte\"\"\"\n    assert...",
+      "source_code_length": 321,
+      "test_code_length": 1620
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:55:59.479805",
+    "agent_name": "Fixer_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "debug",
+    "status": "SUCCESS",
+    "details": {
+      "file_fixed": "./sandbox/hidden_dataset\\test_bad_code_complex.py",
+      "iteration": 8,
+      "input_prompt": "Corrige ce code Python selon le plan de refactoring.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code_complex.py\n\nCODE ORIGINAL:\n```python\nimport os\nimport sys\nimport math\nimport random\n\nx = 10\ny = 20\nz = x+y\n\ndef foo(a,b):\n    c = a+b\n    return c\ndef bar(x):\n  for i in range(5):\n        print(i)\n  if x>0:\n     print(\"Positive\")\n  else:\n       print(\"Negative or zero\")\ndef spam():\n   print(\"Hello\")\n   print(\"World\")\n   a=  [1,2,3,4]\n   for i in a:\n       print(i)\ndef eggs(x):\n    if x%2==0:\n   ...",
+      "output_response": "{\n  \"quality_score\": 5.0,\n  \"issues\": [\n    {\n      \"severity\": \"MAJEUR\",\n      \"line\": 5,\n      \"type\": \"bug\",\n      \"description\": \"Division par zéro potentielle\",\n      \"solution\": \"Ajouter une vérification\"\n    }\n  ],\n  \"refactoring_plan\": \"1. Ajouter docstring\\n2. Gérer les erreurs\",\n  \"estimated_effort\": \"MOYEN\"\n}...",
+      "original_code_length": 745,
+      "fixed_code_length": 321,
+      "had_test_errors": true
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:00.541884",
+    "agent_name": "Judge_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "generation",
+    "status": "SUCCESS",
+    "details": {
+      "file_tested": "./sandbox/hidden_dataset\\test_bad_code_complex.py",
+      "test_file_created": "./sandbox/hidden_dataset\\unitaire_test_bad_code_complex.py",
+      "input_prompt": "Génère des tests unitaires complets pour ce code Python.\n\nFICHIER SOURCE: ./sandbox/hidden_dataset\\test_bad_code_complex.py\n\nCODE À TESTER:\n```python\n{\n  \"quality_score\": 5.0,\n  \"issues\": [\n    {\n      \"severity\": \"MAJEUR\",\n      \"line\": 5,\n      \"type\": \"bug\",\n      \"description\": \"Division par zéro potentielle\",\n      \"solution\": \"Ajouter une vérification\"\n    }\n  ],\n  \"refactoring_plan\": \"1. Ajouter docstring\\n2. Gérer les erreurs\",\n  \"estimated_effort\": \"MOYEN\"\n}\n```\n\nEXIGENCES CRITIQUES:\n- ...",
+      "output_response": "def test_add():\n    assert add(2, 2) == 4\n\ndef test_divide():\n    with pytest.raises(ValueError):\n        divide(1, 0)...",
+      "source_code_length": 321,
+      "test_code_length": 118
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:01.807499",
+    "agent_name": "Fixer_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "debug",
+    "status": "SUCCESS",
+    "details": {
+      "file_fixed": "./sandbox/hidden_dataset\\test_bad_code_complex.py",
+      "iteration": 9,
+      "input_prompt": "Corrige ce code Python selon le plan de refactoring.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code_complex.py\n\nCODE ORIGINAL:\n```python\nimport os\nimport sys\nimport math\nimport random\n\nx = 10\ny = 20\nz = x+y\n\ndef foo(a,b):\n    c = a+b\n    return c\ndef bar(x):\n  for i in range(5):\n        print(i)\n  if x>0:\n     print(\"Positive\")\n  else:\n       print(\"Negative or zero\")\ndef spam():\n   print(\"Hello\")\n   print(\"World\")\n   a=  [1,2,3,4]\n   for i in a:\n       print(i)\ndef eggs(x):\n    if x%2==0:\n   ...",
+      "output_response": "{\n  \"quality_score\": 5.0,\n  \"issues\": [\n    {\n      \"severity\": \"MAJEUR\",\n      \"line\": 5,\n      \"type\": \"bug\",\n      \"description\": \"Division par zéro potentielle\",\n      \"solution\": \"Ajouter une vérification\"\n    }\n  ],\n  \"refactoring_plan\": \"1. Ajouter docstring\\n2. Gérer les erreurs\",\n  \"estimated_effort\": \"MOYEN\"\n}...",
+      "original_code_length": 745,
+      "fixed_code_length": 321,
+      "had_test_errors": true
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:04.102460",
+    "agent_name": "Judge_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "generation",
+    "status": "SUCCESS",
+    "details": {
+      "file_tested": "./sandbox/hidden_dataset\\test_bad_code_complex.py",
+      "test_file_created": "./sandbox/hidden_dataset\\unitaire_test_bad_code_complex.py",
+      "input_prompt": "Génère des tests unitaires complets pour ce code Python.\n\nFICHIER SOURCE: ./sandbox/hidden_dataset\\test_bad_code_complex.py\n\nCODE À TESTER:\n```python\n{\n  \"quality_score\": 5.0,\n  \"issues\": [\n    {\n      \"severity\": \"MAJEUR\",\n      \"line\": 5,\n      \"type\": \"bug\",\n      \"description\": \"Division par zéro potentielle\",\n      \"solution\": \"Ajouter une vérification\"\n    }\n  ],\n  \"refactoring_plan\": \"1. Ajouter docstring\\n2. Gérer les erreurs\",\n  \"estimated_effort\": \"MOYEN\"\n}\n```\n\nEXIGENCES CRITIQUES:\n- ...",
+      "output_response": "```python\nimport pytest\nfrom sandbox.hidden_dataset.test_bad_code_complex import calculate_average, is_adult, calculate_discount\n\ndef test_calculate_average():\n    \"\"\"Test de la fonction calculate_average\"\"\"\n    assert calculate_average([10, 20, 30]) == 20\n\ndef test_calculate_average_vide():\n    \"\"\"Test de la fonction calculate_average avec une liste vide\"\"\"\n    with pytest.raises(ZeroDivisionError):\n        calculate_average([])\n\ndef test_is_adult():\n    \"\"\"Test de la fonction is_adult\"\"\"\n    a...",
+      "source_code_length": 321,
+      "test_code_length": 1635
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:05.286877",
+    "agent_name": "Fixer_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "debug",
+    "status": "SUCCESS",
+    "details": {
+      "file_fixed": "./sandbox/hidden_dataset\\test_bad_code_complex.py",
+      "iteration": 10,
+      "input_prompt": "Corrige ce code Python selon le plan de refactoring.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code_complex.py\n\nCODE ORIGINAL:\n```python\nimport os\nimport sys\nimport math\nimport random\n\nx = 10\ny = 20\nz = x+y\n\ndef foo(a,b):\n    c = a+b\n    return c\ndef bar(x):\n  for i in range(5):\n        print(i)\n  if x>0:\n     print(\"Positive\")\n  else:\n       print(\"Negative or zero\")\ndef spam():\n   print(\"Hello\")\n   print(\"World\")\n   a=  [1,2,3,4]\n   for i in a:\n       print(i)\ndef eggs(x):\n    if x%2==0:\n   ...",
+      "output_response": "{\n  \"quality_score\": 5.0,\n  \"issues\": [\n    {\n      \"severity\": \"MAJEUR\",\n      \"line\": 5,\n      \"type\": \"bug\",\n      \"description\": \"Division par zéro potentielle\",\n      \"solution\": \"Ajouter une vérification\"\n    }\n  ],\n  \"refactoring_plan\": \"1. Ajouter docstring\\n2. Gérer les erreurs\",\n  \"estimated_effort\": \"MOYEN\"\n}...",
+      "original_code_length": 745,
+      "fixed_code_length": 321,
+      "had_test_errors": true
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:06.686513",
+    "agent_name": "Judge_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "generation",
+    "status": "SUCCESS",
+    "details": {
+      "file_tested": "./sandbox/hidden_dataset\\test_bad_code_complex.py",
+      "test_file_created": "./sandbox/hidden_dataset\\unitaire_test_bad_code_complex.py",
+      "input_prompt": "Génère des tests unitaires complets pour ce code Python.\n\nFICHIER SOURCE: ./sandbox/hidden_dataset\\test_bad_code_complex.py\n\nCODE À TESTER:\n```python\n{\n  \"quality_score\": 5.0,\n  \"issues\": [\n    {\n      \"severity\": \"MAJEUR\",\n      \"line\": 5,\n      \"type\": \"bug\",\n      \"description\": \"Division par zéro potentielle\",\n      \"solution\": \"Ajouter une vérification\"\n    }\n  ],\n  \"refactoring_plan\": \"1. Ajouter docstring\\n2. Gérer les erreurs\",\n  \"estimated_effort\": \"MOYEN\"\n}\n```\n\nEXIGENCES CRITIQUES:\n- ...",
+      "output_response": "def test_add():\n    assert add(2, 2) == 4\n\ndef test_divide():\n    with pytest.raises(ValueError):\n        divide(1, 0)...",
+      "source_code_length": 321,
+      "test_code_length": 118
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:09.388477",
+    "agent_name": "Auditor_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "analysis",
+    "status": "SUCCESS",
+    "details": {
+      "file_analyzed": "./sandbox/hidden_dataset\\test_bad_code_complex.py",
+      "input_prompt": "Analyse ce fichier Python et produis un plan de refactoring détaillé.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code_complex.py\n\nCODE SOURCE:\n```python\n{\n  \"quality_score\": 5.0,\n  \"issues\": [\n    {\n      \"severity\": \"MAJEUR\",\n      \"line\": 5,\n      \"type\": \"bug\",\n      \"description\": \"Division par zéro potentielle\",\n      \"solution\": \"Ajouter une vérification\"\n    }\n  ],\n  \"refactoring_plan\": \"1. Ajouter docstring\\n2. Gérer les erreurs\",\n  \"estimated_effort\": \"MOYEN\"\n}\n```\n\nRAPPORT PYLINT (Sco...",
+      "output_response": "Je dois souligner que le fichier Python fourni est en réalité un fichier JSON contenant des métadonnées sur un fichier Python. Cependant, je vais fournir une analyse basée sur les informations disponibles.\n\n```json\n{\n  \"file_path\": \"./sandbox/hidden_dataset/test_bad_code_complex.py\",\n  \"quality_score\": 0.0,\n  \"issues\": [\n    {\n      \"severity\": \"CRITIQUE\",\n      \"line\": null,\n      \"type\": \"logic_error\",\n      \"description\": \"Le code source n'est pas disponible pour analyse\",\n      \"solution\": \"...",
+      "pylint_score": 0.0,
+      "issues_count": 4
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:10.403241",
+    "agent_name": "Auditor_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "analysis",
+    "status": "SUCCESS",
+    "details": {
+      "file_analyzed": "./sandbox/hidden_dataset\\test_bad_code.py",
+      "input_prompt": "Analyse ce fichier Python et produis un plan de refactoring détaillé.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code.py\n\nCODE SOURCE:\n```python\nimport os\nimport math\n\ndef foo(x,y):\n    return x+y\n\ndef bar():\n    a = 10\n    b = 20\n    print(a+b)\n\n```\n\nRAPPORT PYLINT (Score: 0.0/10):\n\n\nINSTRUCTIONS SPÉCIALES:\n- Regarde les noms de fonctions/variables pour deviner l'intention\n- Si \"calculate_average\" retourne une somme, c'est un BUG LOGIQUE\n- Si \"is_adult\" n'a pas de seuil clair, propose 18 ans (...",
+      "output_response": "{\n  \"quality_score\": 5.0,\n  \"issues\": [\n    {\n      \"severity\": \"MAJEUR\",\n      \"line\": 5,\n      \"type\": \"bug\",\n      \"description\": \"Division par zéro potentielle\",\n      \"solution\": \"Ajouter une vérification\"\n    }\n  ],\n  \"refactoring_plan\": \"1. Ajouter docstring\\n2. Gérer les erreurs\",\n  \"estimated_effort\": \"MOYEN\"\n}...",
+      "pylint_score": 0.0,
+      "issues_count": 1
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:11.980496",
+    "agent_name": "Fixer_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "fix",
+    "status": "SUCCESS",
+    "details": {
+      "file_fixed": "./sandbox/hidden_dataset\\test_bad_code.py",
+      "iteration": 1,
+      "input_prompt": "Corrige ce code Python selon le plan de refactoring.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code.py\n\nCODE ORIGINAL:\n```python\nimport os\nimport math\n\ndef foo(x,y):\n    return x+y\n\ndef bar():\n    a = 10\n    b = 20\n    print(a+b)\n\n```\n\nPROBLÈMES IDENTIFIÉS:\n- [MAJEUR] Ligne 5: Division par zéro potentielle\n\nPLAN DE REFACTORING:\n1. Ajouter docstring\n2. Gérer les erreurs\n\n\nRetourne le code Python corrigé complet (sans markdown, juste le code)....",
+      "output_response": "```python\nimport os\nimport math\n\ndef foo(x, y):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        x (int): Le premier nombre.\n        y (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme de x et y.\n    \"\"\"\n    try:\n        return x + y\n    except TypeError:\n        raise ValueError(\"Les deux arguments doivent être des nombres\")\n\ndef bar():\n    \"\"\"\n    Imprime la somme de deux nombres.\n\n    Cette fonction utilise les nombres 10 et 20 pour calculer la somme.\n    \"\"\"\n    a = 10\n  ...",
+      "original_code_length": 101,
+      "fixed_code_length": 641,
+      "had_test_errors": false
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:13.252056",
+    "agent_name": "Judge_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "generation",
+    "status": "SUCCESS",
+    "details": {
+      "file_tested": "./sandbox/hidden_dataset\\test_bad_code.py",
+      "test_file_created": "./sandbox/hidden_dataset\\unitaire_test_bad_code.py",
+      "input_prompt": "Génère des tests unitaires complets pour ce code Python.\n\nFICHIER SOURCE: ./sandbox/hidden_dataset\\test_bad_code.py\n\nCODE À TESTER:\n```python\nimport os\nimport math\n\ndef foo(x, y):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        x (int): Le premier nombre.\n        y (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme de x et y.\n    \"\"\"\n    try:\n        return x + y\n    except TypeError:\n        raise ValueError(\"Les deux arguments doivent être des nombres\")\n\ndef bar():\n    \"\"\"\n...",
+      "output_response": "def test_add():\n    assert add(2, 2) == 4\n\ndef test_divide():\n    with pytest.raises(ValueError):\n        divide(1, 0)...",
+      "source_code_length": 641,
+      "test_code_length": 118
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:14.962036",
+    "agent_name": "Fixer_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "debug",
+    "status": "SUCCESS",
+    "details": {
+      "file_fixed": "./sandbox/hidden_dataset\\test_bad_code.py",
+      "iteration": 2,
+      "input_prompt": "Corrige ce code Python selon le plan de refactoring.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code.py\n\nCODE ORIGINAL:\n```python\nimport os\nimport math\n\ndef foo(x,y):\n    return x+y\n\ndef bar():\n    a = 10\n    b = 20\n    print(a+b)\n\n```\n\nPROBLÈMES IDENTIFIÉS:\n- [MAJEUR] Ligne 5: Division par zéro potentielle\n\nPLAN DE REFACTORING:\n1. Ajouter docstring\n2. Gérer les erreurs\n\n\n ERREURS DE TESTS À CORRIGER:\nPytest non installé. Installez-le avec: pip install pytest\n\nIMPORTANT: Le code doit passer ces...",
+      "output_response": "```python\nimport os\nimport math\n\ndef foo(x, y):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        x (int): Le premier nombre.\n        y (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme de x et y.\n\n    Raises:\n        TypeError: Si x ou y n'est pas un nombre.\n    \"\"\"\n    if not isinstance(x, (int, float)) or not isinstance(y, (int, float)):\n        raise TypeError(\"x et y doivent être des nombres\")\n    return x + y\n\ndef bar():\n    \"\"\"\n    Imprime la somme de deux nombres.\n\n   ...",
+      "original_code_length": 101,
+      "fixed_code_length": 797,
+      "had_test_errors": true
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:16.225354",
+    "agent_name": "Judge_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "generation",
+    "status": "SUCCESS",
+    "details": {
+      "file_tested": "./sandbox/hidden_dataset\\test_bad_code.py",
+      "test_file_created": "./sandbox/hidden_dataset\\unitaire_test_bad_code.py",
+      "input_prompt": "Génère des tests unitaires complets pour ce code Python.\n\nFICHIER SOURCE: ./sandbox/hidden_dataset\\test_bad_code.py\n\nCODE À TESTER:\n```python\nimport os\nimport math\n\ndef foo(x, y):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        x (int): Le premier nombre.\n        y (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme de x et y.\n\n    Raises:\n        TypeError: Si x ou y n'est pas un nombre.\n    \"\"\"\n    if not isinstance(x, (int, float)) or not isinstance(y, (int, float)):\n      ...",
+      "output_response": "def test_add():\n    assert add(2, 2) == 4\n\ndef test_divide():\n    with pytest.raises(ValueError):\n        divide(1, 0)...",
+      "source_code_length": 797,
+      "test_code_length": 118
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:17.829365",
+    "agent_name": "Fixer_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "debug",
+    "status": "SUCCESS",
+    "details": {
+      "file_fixed": "./sandbox/hidden_dataset\\test_bad_code.py",
+      "iteration": 3,
+      "input_prompt": "Corrige ce code Python selon le plan de refactoring.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code.py\n\nCODE ORIGINAL:\n```python\nimport os\nimport math\n\ndef foo(x,y):\n    return x+y\n\ndef bar():\n    a = 10\n    b = 20\n    print(a+b)\n\n```\n\nPROBLÈMES IDENTIFIÉS:\n- [MAJEUR] Ligne 5: Division par zéro potentielle\n\nPLAN DE REFACTORING:\n1. Ajouter docstring\n2. Gérer les erreurs\n\n\n ERREURS DE TESTS À CORRIGER:\nPytest non installé. Installez-le avec: pip install pytest\n\nIMPORTANT: Le code doit passer ces...",
+      "output_response": "```python\nimport os\nimport math\n\ndef foo(x, y):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        x (int ou float): Le premier nombre.\n        y (int ou float): Le deuxième nombre.\n\n    Returns:\n        int ou float: La somme de x et y.\n\n    Raises:\n        TypeError: Si x ou y ne sont pas des nombres.\n    \"\"\"\n    if not isinstance(x, (int, float)) or not isinstance(y, (int, float)):\n        raise TypeError(\"Les deux arguments doivent être des nombres\")\n    return x + y\n\ndef bar():\n    \"\"\"...",
+      "original_code_length": 101,
+      "fixed_code_length": 648,
+      "had_test_errors": true
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:18.939570",
+    "agent_name": "Judge_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "generation",
+    "status": "SUCCESS",
+    "details": {
+      "file_tested": "./sandbox/hidden_dataset\\test_bad_code.py",
+      "test_file_created": "./sandbox/hidden_dataset\\unitaire_test_bad_code.py",
+      "input_prompt": "Génère des tests unitaires complets pour ce code Python.\n\nFICHIER SOURCE: ./sandbox/hidden_dataset\\test_bad_code.py\n\nCODE À TESTER:\n```python\nimport os\nimport math\n\ndef foo(x, y):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        x (int ou float): Le premier nombre.\n        y (int ou float): Le deuxième nombre.\n\n    Returns:\n        int ou float: La somme de x et y.\n\n    Raises:\n        TypeError: Si x ou y ne sont pas des nombres.\n    \"\"\"\n    if not isinstance(x, (int, float)) or not isin...",
+      "output_response": "def test_add():\n    assert add(2, 2) == 4\n\ndef test_divide():\n    with pytest.raises(ValueError):\n        divide(1, 0)...",
+      "source_code_length": 648,
+      "test_code_length": 118
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:20.708309",
+    "agent_name": "Fixer_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "debug",
+    "status": "SUCCESS",
+    "details": {
+      "file_fixed": "./sandbox/hidden_dataset\\test_bad_code.py",
+      "iteration": 4,
+      "input_prompt": "Corrige ce code Python selon le plan de refactoring.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code.py\n\nCODE ORIGINAL:\n```python\nimport os\nimport math\n\ndef foo(x,y):\n    return x+y\n\ndef bar():\n    a = 10\n    b = 20\n    print(a+b)\n\n```\n\nPROBLÈMES IDENTIFIÉS:\n- [MAJEUR] Ligne 5: Division par zéro potentielle\n\nPLAN DE REFACTORING:\n1. Ajouter docstring\n2. Gérer les erreurs\n\n\n ERREURS DE TESTS À CORRIGER:\nPytest non installé. Installez-le avec: pip install pytest\n\nIMPORTANT: Le code doit passer ces...",
+      "output_response": "```python\nimport os\nimport math\n\ndef foo(x, y):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        x (int): Le premier nombre.\n        y (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme de x et y.\n\n    Raises:\n        TypeError: Si x ou y n'est pas un nombre.\n    \"\"\"\n    if not isinstance(x, (int, float)) or not isinstance(y, (int, float)):\n        raise TypeError(\"Les deux arguments doivent être des nombres\")\n    return x + y\n\ndef bar():\n    \"\"\"\n    Additionne deux nombres fi...",
+      "original_code_length": 101,
+      "fixed_code_length": 630,
+      "had_test_errors": true
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:21.801103",
+    "agent_name": "Judge_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "generation",
+    "status": "SUCCESS",
+    "details": {
+      "file_tested": "./sandbox/hidden_dataset\\test_bad_code.py",
+      "test_file_created": "./sandbox/hidden_dataset\\unitaire_test_bad_code.py",
+      "input_prompt": "Génère des tests unitaires complets pour ce code Python.\n\nFICHIER SOURCE: ./sandbox/hidden_dataset\\test_bad_code.py\n\nCODE À TESTER:\n```python\nimport os\nimport math\n\ndef foo(x, y):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        x (int): Le premier nombre.\n        y (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme de x et y.\n\n    Raises:\n        TypeError: Si x ou y n'est pas un nombre.\n    \"\"\"\n    if not isinstance(x, (int, float)) or not isinstance(y, (int, float)):\n      ...",
+      "output_response": "def add(a, b):\n    \"\"\"Addition.\"\"\"\n    return a + b\n\ndef divide(a, b):\n    \"\"\"Division avec gestion d'erreur.\"\"\"\n    if b == 0:\n        raise ValueError(\"Division par zéro\")\n    return a / b...",
+      "source_code_length": 630,
+      "test_code_length": 190
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:23.569323",
+    "agent_name": "Fixer_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "debug",
+    "status": "SUCCESS",
+    "details": {
+      "file_fixed": "./sandbox/hidden_dataset\\test_bad_code.py",
+      "iteration": 5,
+      "input_prompt": "Corrige ce code Python selon le plan de refactoring.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code.py\n\nCODE ORIGINAL:\n```python\nimport os\nimport math\n\ndef foo(x,y):\n    return x+y\n\ndef bar():\n    a = 10\n    b = 20\n    print(a+b)\n\n```\n\nPROBLÈMES IDENTIFIÉS:\n- [MAJEUR] Ligne 5: Division par zéro potentielle\n\nPLAN DE REFACTORING:\n1. Ajouter docstring\n2. Gérer les erreurs\n\n\n ERREURS DE TESTS À CORRIGER:\nPytest non installé. Installez-le avec: pip install pytest\n\nIMPORTANT: Le code doit passer ces...",
+      "output_response": "```python\nimport os\nimport math\n\ndef foo(x, y):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        x (int): Le premier nombre.\n        y (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme de x et y.\n\n    Raises:\n        TypeError: Si x ou y n'est pas un nombre.\n    \"\"\"\n    if not isinstance(x, (int, float)) or not isinstance(y, (int, float)):\n        raise TypeError(\"x et y doivent être des nombres\")\n    return x + y\n\ndef bar():\n    \"\"\"\n    Imprime la somme de deux nombres.\n\n   ...",
+      "original_code_length": 101,
+      "fixed_code_length": 739,
+      "had_test_errors": true
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:24.701877",
+    "agent_name": "Judge_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "generation",
+    "status": "SUCCESS",
+    "details": {
+      "file_tested": "./sandbox/hidden_dataset\\test_bad_code.py",
+      "test_file_created": "./sandbox/hidden_dataset\\unitaire_test_bad_code.py",
+      "input_prompt": "Génère des tests unitaires complets pour ce code Python.\n\nFICHIER SOURCE: ./sandbox/hidden_dataset\\test_bad_code.py\n\nCODE À TESTER:\n```python\nimport os\nimport math\n\ndef foo(x, y):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        x (int): Le premier nombre.\n        y (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme de x et y.\n\n    Raises:\n        TypeError: Si x ou y n'est pas un nombre.\n    \"\"\"\n    if not isinstance(x, (int, float)) or not isinstance(y, (int, float)):\n      ...",
+      "output_response": "def test_add():\n    assert add(2, 2) == 4\n\ndef test_divide():\n    with pytest.raises(ValueError):\n        divide(1, 0)...",
+      "source_code_length": 739,
+      "test_code_length": 118
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:26.635932",
+    "agent_name": "Fixer_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "debug",
+    "status": "SUCCESS",
+    "details": {
+      "file_fixed": "./sandbox/hidden_dataset\\test_bad_code.py",
+      "iteration": 6,
+      "input_prompt": "Corrige ce code Python selon le plan de refactoring.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code.py\n\nCODE ORIGINAL:\n```python\nimport os\nimport math\n\ndef foo(x,y):\n    return x+y\n\ndef bar():\n    a = 10\n    b = 20\n    print(a+b)\n\n```\n\nPROBLÈMES IDENTIFIÉS:\n- [MAJEUR] Ligne 5: Division par zéro potentielle\n\nPLAN DE REFACTORING:\n1. Ajouter docstring\n2. Gérer les erreurs\n\n\n ERREURS DE TESTS À CORRIGER:\nPytest non installé. Installez-le avec: pip install pytest\n\nIMPORTANT: Le code doit passer ces...",
+      "output_response": "```python\nimport os\nimport math\n\ndef foo(x, y):\n    \"\"\"\n    Cette fonction additionne deux nombres.\n\n    Args:\n        x (int ou float): Le premier nombre.\n        y (int ou float): Le deuxième nombre.\n\n    Returns:\n        int ou float: La somme de x et y.\n\n    Raises:\n        TypeError: Si x ou y n'est pas un nombre.\n    \"\"\"\n    if not isinstance(x, (int, float)) or not isinstance(y, (int, float)):\n        raise TypeError(\"Les deux arguments doivent être des nombres\")\n    return x + y\n\ndef bar...",
+      "original_code_length": 101,
+      "fixed_code_length": 990,
+      "had_test_errors": true
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:27.864259",
+    "agent_name": "Judge_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "generation",
+    "status": "SUCCESS",
+    "details": {
+      "file_tested": "./sandbox/hidden_dataset\\test_bad_code.py",
+      "test_file_created": "./sandbox/hidden_dataset\\unitaire_test_bad_code.py",
+      "input_prompt": "Génère des tests unitaires complets pour ce code Python.\n\nFICHIER SOURCE: ./sandbox/hidden_dataset\\test_bad_code.py\n\nCODE À TESTER:\n```python\nimport os\nimport math\n\ndef foo(x, y):\n    \"\"\"\n    Cette fonction additionne deux nombres.\n\n    Args:\n        x (int ou float): Le premier nombre.\n        y (int ou float): Le deuxième nombre.\n\n    Returns:\n        int ou float: La somme de x et y.\n\n    Raises:\n        TypeError: Si x ou y n'est pas un nombre.\n    \"\"\"\n    if not isinstance(x, (int, float)) ...",
+      "output_response": "def test_add():\n    assert add(2, 2) == 4\n\ndef test_divide():\n    with pytest.raises(ValueError):\n        divide(1, 0)...",
+      "source_code_length": 990,
+      "test_code_length": 118
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:29.710932",
+    "agent_name": "Fixer_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "debug",
+    "status": "SUCCESS",
+    "details": {
+      "file_fixed": "./sandbox/hidden_dataset\\test_bad_code.py",
+      "iteration": 7,
+      "input_prompt": "Corrige ce code Python selon le plan de refactoring.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code.py\n\nCODE ORIGINAL:\n```python\nimport os\nimport math\n\ndef foo(x,y):\n    return x+y\n\ndef bar():\n    a = 10\n    b = 20\n    print(a+b)\n\n```\n\nPROBLÈMES IDENTIFIÉS:\n- [MAJEUR] Ligne 5: Division par zéro potentielle\n\nPLAN DE REFACTORING:\n1. Ajouter docstring\n2. Gérer les erreurs\n\n\n ERREURS DE TESTS À CORRIGER:\nPytest non installé. Installez-le avec: pip install pytest\n\nIMPORTANT: Le code doit passer ces...",
+      "output_response": "```python\nimport os\nimport math\n\ndef foo(x, y):\n    \"\"\"\n    Cette fonction additionne deux nombres.\n\n    Args:\n        x (int): Le premier nombre.\n        y (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme des deux nombres.\n\n    Raises:\n        TypeError: Si x ou y n'est pas un nombre.\n    \"\"\"\n    if not isinstance(x, (int, float)) or not isinstance(y, (int, float)):\n        raise TypeError(\"Les deux arguments doivent être des nombres\")\n    return x + y\n\ndef bar():\n    \"\"\"\n    Cett...",
+      "original_code_length": 101,
+      "fixed_code_length": 622,
+      "had_test_errors": true
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:31.226133",
+    "agent_name": "Judge_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "generation",
+    "status": "SUCCESS",
+    "details": {
+      "file_tested": "./sandbox/hidden_dataset\\test_bad_code.py",
+      "test_file_created": "./sandbox/hidden_dataset\\unitaire_test_bad_code.py",
+      "input_prompt": "Génère des tests unitaires complets pour ce code Python.\n\nFICHIER SOURCE: ./sandbox/hidden_dataset\\test_bad_code.py\n\nCODE À TESTER:\n```python\nimport os\nimport math\n\ndef foo(x, y):\n    \"\"\"\n    Cette fonction additionne deux nombres.\n\n    Args:\n        x (int): Le premier nombre.\n        y (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme des deux nombres.\n\n    Raises:\n        TypeError: Si x ou y n'est pas un nombre.\n    \"\"\"\n    if not isinstance(x, (int, float)) or not isinstance(y,...",
+      "output_response": "def test_add():\n    assert add(2, 2) == 4\n\ndef test_divide():\n    with pytest.raises(ValueError):\n        divide(1, 0)...",
+      "source_code_length": 622,
+      "test_code_length": 118
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:33.815052",
+    "agent_name": "Fixer_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "debug",
+    "status": "SUCCESS",
+    "details": {
+      "file_fixed": "./sandbox/hidden_dataset\\test_bad_code.py",
+      "iteration": 8,
+      "input_prompt": "Corrige ce code Python selon le plan de refactoring.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code.py\n\nCODE ORIGINAL:\n```python\nimport os\nimport math\n\ndef foo(x,y):\n    return x+y\n\ndef bar():\n    a = 10\n    b = 20\n    print(a+b)\n\n```\n\nPROBLÈMES IDENTIFIÉS:\n- [MAJEUR] Ligne 5: Division par zéro potentielle\n\nPLAN DE REFACTORING:\n1. Ajouter docstring\n2. Gérer les erreurs\n\n\n ERREURS DE TESTS À CORRIGER:\nPytest non installé. Installez-le avec: pip install pytest\n\nIMPORTANT: Le code doit passer ces...",
+      "output_response": "```python\nimport os\nimport math\n\ndef foo(x, y):\n    \"\"\"\n    Cette fonction additionne deux nombres.\n\n    Args:\n        x (int): Le premier nombre.\n        y (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme de x et y.\n\n    Raises:\n        TypeError: Si x ou y n'est pas un nombre.\n    \"\"\"\n    if not isinstance(x, (int, float)) or not isinstance(y, (int, float)):\n        raise TypeError(\"Les deux arguments doivent être des nombres\")\n    return x + y\n\ndef bar():\n    \"\"\"\n    Cette fonct...",
+      "original_code_length": 101,
+      "fixed_code_length": 842,
+      "had_test_errors": true
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:35.344670",
+    "agent_name": "Judge_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "generation",
+    "status": "SUCCESS",
+    "details": {
+      "file_tested": "./sandbox/hidden_dataset\\test_bad_code.py",
+      "test_file_created": "./sandbox/hidden_dataset\\unitaire_test_bad_code.py",
+      "input_prompt": "Génère des tests unitaires complets pour ce code Python.\n\nFICHIER SOURCE: ./sandbox/hidden_dataset\\test_bad_code.py\n\nCODE À TESTER:\n```python\nimport os\nimport math\n\ndef foo(x, y):\n    \"\"\"\n    Cette fonction additionne deux nombres.\n\n    Args:\n        x (int): Le premier nombre.\n        y (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme de x et y.\n\n    Raises:\n        TypeError: Si x ou y n'est pas un nombre.\n    \"\"\"\n    if not isinstance(x, (int, float)) or not isinstance(y, (int, ...",
+      "output_response": "def test_add():\n    assert add(2, 2) == 4\n\ndef test_divide():\n    with pytest.raises(ValueError):\n        divide(1, 0)...",
+      "source_code_length": 842,
+      "test_code_length": 118
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:37.978714",
+    "agent_name": "Fixer_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "debug",
+    "status": "SUCCESS",
+    "details": {
+      "file_fixed": "./sandbox/hidden_dataset\\test_bad_code.py",
+      "iteration": 9,
+      "input_prompt": "Corrige ce code Python selon le plan de refactoring.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code.py\n\nCODE ORIGINAL:\n```python\nimport os\nimport math\n\ndef foo(x,y):\n    return x+y\n\ndef bar():\n    a = 10\n    b = 20\n    print(a+b)\n\n```\n\nPROBLÈMES IDENTIFIÉS:\n- [MAJEUR] Ligne 5: Division par zéro potentielle\n\nPLAN DE REFACTORING:\n1. Ajouter docstring\n2. Gérer les erreurs\n\n\n ERREURS DE TESTS À CORRIGER:\nPytest non installé. Installez-le avec: pip install pytest\n\nIMPORTANT: Le code doit passer ces...",
+      "output_response": "```python\nimport os\nimport math\n\ndef foo(x, y):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        x (int ou float): Le premier nombre.\n        y (int ou float): Le deuxième nombre.\n\n    Returns:\n        int ou float: La somme de x et y.\n\n    Raises:\n        TypeError: Si x ou y n'est pas un nombre.\n    \"\"\"\n    if not isinstance(x, (int, float)) or not isinstance(y, (int, float)):\n        raise TypeError(\"Les deux arguments doivent être des nombres\")\n    return x + y\n\ndef bar():\n    \"\"\"\n   ...",
+      "original_code_length": 101,
+      "fixed_code_length": 978,
+      "had_test_errors": true
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:39.352194",
+    "agent_name": "Judge_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "generation",
+    "status": "SUCCESS",
+    "details": {
+      "file_tested": "./sandbox/hidden_dataset\\test_bad_code.py",
+      "test_file_created": "./sandbox/hidden_dataset\\unitaire_test_bad_code.py",
+      "input_prompt": "Génère des tests unitaires complets pour ce code Python.\n\nFICHIER SOURCE: ./sandbox/hidden_dataset\\test_bad_code.py\n\nCODE À TESTER:\n```python\nimport os\nimport math\n\ndef foo(x, y):\n    \"\"\"\n    Additionne deux nombres.\n\n    Args:\n        x (int ou float): Le premier nombre.\n        y (int ou float): Le deuxième nombre.\n\n    Returns:\n        int ou float: La somme de x et y.\n\n    Raises:\n        TypeError: Si x ou y n'est pas un nombre.\n    \"\"\"\n    if not isinstance(x, (int, float)) or not isinstan...",
+      "output_response": "def test_add():\n    assert add(2, 2) == 4\n\ndef test_divide():\n    with pytest.raises(ValueError):\n        divide(1, 0)...",
+      "source_code_length": 978,
+      "test_code_length": 118
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:41.601932",
+    "agent_name": "Fixer_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "debug",
+    "status": "SUCCESS",
+    "details": {
+      "file_fixed": "./sandbox/hidden_dataset\\test_bad_code.py",
+      "iteration": 10,
+      "input_prompt": "Corrige ce code Python selon le plan de refactoring.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code.py\n\nCODE ORIGINAL:\n```python\nimport os\nimport math\n\ndef foo(x,y):\n    return x+y\n\ndef bar():\n    a = 10\n    b = 20\n    print(a+b)\n\n```\n\nPROBLÈMES IDENTIFIÉS:\n- [MAJEUR] Ligne 5: Division par zéro potentielle\n\nPLAN DE REFACTORING:\n1. Ajouter docstring\n2. Gérer les erreurs\n\n\n ERREURS DE TESTS À CORRIGER:\nPytest non installé. Installez-le avec: pip install pytest\n\nIMPORTANT: Le code doit passer ces...",
+      "output_response": "```python\nimport os\nimport math\n\ndef foo(x, y):\n    \"\"\"\n    Cette fonction additionne deux nombres.\n\n    Args:\n        x (int): Le premier nombre.\n        y (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme des deux nombres.\n\n    Raises:\n        TypeError: Si x ou y n'est pas un nombre.\n    \"\"\"\n    if not isinstance(x, (int, float)) or not isinstance(y, (int, float)):\n        raise TypeError(\"Les deux arguments doivent être des nombres\")\n    return x + y\n\ndef bar():\n    \"\"\"\n    Cett...",
+      "original_code_length": 101,
+      "fixed_code_length": 884,
+      "had_test_errors": true
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:42.763653",
+    "agent_name": "Judge_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "generation",
+    "status": "SUCCESS",
+    "details": {
+      "file_tested": "./sandbox/hidden_dataset\\test_bad_code.py",
+      "test_file_created": "./sandbox/hidden_dataset\\unitaire_test_bad_code.py",
+      "input_prompt": "Génère des tests unitaires complets pour ce code Python.\n\nFICHIER SOURCE: ./sandbox/hidden_dataset\\test_bad_code.py\n\nCODE À TESTER:\n```python\nimport os\nimport math\n\ndef foo(x, y):\n    \"\"\"\n    Cette fonction additionne deux nombres.\n\n    Args:\n        x (int): Le premier nombre.\n        y (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme des deux nombres.\n\n    Raises:\n        TypeError: Si x ou y n'est pas un nombre.\n    \"\"\"\n    if not isinstance(x, (int, float)) or not isinstance(y,...",
+      "output_response": "def test_add():\n    assert add(2, 2) == 4\n\ndef test_divide():\n    with pytest.raises(ValueError):\n        divide(1, 0)...",
+      "source_code_length": 884,
+      "test_code_length": 118
+    }
+  },
+  {
+    "timestamp": "2026-02-28T17:56:47.115344",
+    "agent_name": "Auditor_Agent",
+    "model_used": "groq/llama-3.3-70b-versatile",
+    "action": "analysis",
+    "status": "SUCCESS",
+    "details": {
+      "file_analyzed": "./sandbox/hidden_dataset\\test_bad_code.py",
+      "input_prompt": "Analyse ce fichier Python et produis un plan de refactoring détaillé.\n\nFICHIER: ./sandbox/hidden_dataset\\test_bad_code.py\n\nCODE SOURCE:\n```python\nimport os\nimport math\n\ndef foo(x, y):\n    \"\"\"\n    Cette fonction additionne deux nombres.\n\n    Args:\n        x (int): Le premier nombre.\n        y (int): Le deuxième nombre.\n\n    Returns:\n        int: La somme des deux nombres.\n\n    Raises:\n        TypeError: Si x ou y n'est pas un nombre.\n    \"\"\"\n    if not isinstance(x, (int, float)) or not isinstanc...",
+      "output_response": "Analyse du code Python :\n\nLe code source fourni contient deux fonctions, `foo` et `bar`, qui effectuent des opérations d'addition. La fonction `foo` prend deux arguments, `x` et `y`, et retourne leur somme. La fonction `bar` additionne deux nombres constants et imprime le résultat.\n\n**Analyse des noms de fonctions/variables :**\n\n* La fonction `foo` est nommée de manière générique et ne reflète pas clairement son intention. Un nom plus approprié pourrait être `add_numbers`.\n* La fonction `bar` es...",
+      "pylint_score": 0.0,
+      "issues_count": 5
+    }
   }
 ]
